@@ -165,7 +165,6 @@ function Home() {
           aria-label={t("home.completeTitle")}
         >
           <div className="flex items-start gap-4">
-            <Ring pct={pct} />
             <div className="min-w-0 flex-1">
               <h2 className="text-lg font-normal leading-snug">{t("home.completeTitle")}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{t("home.completeBody")}</p>
@@ -294,33 +293,6 @@ function NotifItem({
   );
 }
 
-function Ring({ pct }: { pct: number }) {
-  const r = 26;
-  const c = 2 * Math.PI * r;
-  return (
-    <div
-      className="relative grid h-16 w-16 shrink-0 place-items-center"
-      role="img"
-      aria-label={`${pct}%`}
-    >
-      <svg viewBox="0 0 64 64" className="absolute inset-0 -rotate-90">
-        <circle cx="32" cy="32" r={r} fill="none" strokeWidth="6" className="stroke-cream" />
-        <circle
-          cx="32"
-          cy="32"
-          r={r}
-          fill="none"
-          strokeWidth="6"
-          strokeLinecap="round"
-          className="stroke-terracotta transition-[stroke-dashoffset] duration-700"
-          strokeDasharray={c}
-          strokeDashoffset={c * (1 - pct / 100)}
-        />
-      </svg>
-      <span className="text-sm font-bold tabular-nums">{pct}%</span>
-    </div>
-  );
-}
 
 const PROMOS: { title: TKey; body: TKey; icon: typeof Pill; tone: string }[] = [
   { title: "promo.1.title", body: "promo.1.body", icon: Stethoscope, tone: "bg-gradient-accent" },

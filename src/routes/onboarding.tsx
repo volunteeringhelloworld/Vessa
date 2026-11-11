@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { IntentOptions } from "@/components/vessa/IntentOptions";
+import { LanguageSwitch } from "@/components/vessa/LanguageSwitch";
 import { AppScreen } from "@/components/vessa/AppScreen";
 import { Button } from "@/components/ui/button";
 import { useVessa } from "@/lib/store";
@@ -40,7 +41,11 @@ function Onboarding() {
           if (dx < -60 && Math.abs(dx) > Math.abs(dy) * 1.5) next();
         }}
       >
-        <h1 className="mt-10 animate-rise text-[2.75rem] font-normal leading-[1.02] text-terracotta">
+        <header className="flex justify-end pt-2">
+          <LanguageSwitch />
+        </header>
+
+        <h1 className="mt-6 animate-rise text-[2.75rem] font-normal leading-[1.02] text-terracotta">
           {t("onb.title")}
         </h1>
         <p className="mt-3 animate-rise text-[15px] text-muted-foreground [animation-delay:80ms]">

@@ -18,7 +18,7 @@ function CompleteStep() {
         className="items-center justify-center pb-10 text-center"
         footer={
           <Button asChild variant="vessa" size="pill" className="w-full">
-            <Link to="/">Go to Home</Link>
+            <Link to="/home">Go to Home</Link>
           </Button>
         }
       >

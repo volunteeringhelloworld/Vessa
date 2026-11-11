@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 import { Logo } from "./Logo";
-import { ProgressBar } from "./ProgressBar";
 
 interface Props {
   title?: string;
+  /** Kept for compatibility with existing onboarding routes; no progress bar is displayed. */
   progress?: number;
   children: ReactNode;
   footer?: ReactNode;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 /** Shared frame for every onboarding screen: logo top-left, section title top-right, progress bar. */
-export function OnboardingScreen({ title, progress, children, footer, className }: Props) {
+export function OnboardingScreen({ title, children, footer, className }: Props) {
   return (
     <div className="relative z-10 flex min-h-dvh flex-col px-6 safe-top safe-bottom">
       <header className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 pt-2">
@@ -28,7 +28,6 @@ export function OnboardingScreen({ title, progress, children, footer, className 
           <span />
         )}
       </header>
-      {progress !== undefined && <ProgressBar value={progress} className="mt-6" />}
       <main className={cn("flex flex-1 flex-col pt-8 animate-rise", className)}>{children}</main>
       {footer && <footer className="pt-6">{footer}</footer>}
     </div>
