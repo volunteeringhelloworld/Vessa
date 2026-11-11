@@ -71,7 +71,7 @@ function Activated() {
 
       <div className="mt-auto space-y-2 pt-6">
         <VButton onClick={() => navigate({ to: "/medication/tracker" })}>View Medication Schedule</VButton>
-        <VButton variant="ghost" onClick={() => navigate({ to: "/medication/tracker" })}>
+        <VButton variant="ghost" onClick={() => navigate({ to: "/home" })}>
           Back to Home
         </VButton>
       </div>

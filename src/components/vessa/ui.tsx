@@ -1,12 +1,13 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ArrowLeft, Bell, CalendarDays, FileHeart, Heart, Home, Sparkles, UserRound } from "lucide-react";
+import { ArrowLeft, Bell, Heart, Sparkles, UserRound } from "lucide-react";
 import { forwardRef, useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/vessa-logo.png";
+import logo from "@/assets/vassa-logo.png";
 import pet from "@/assets/streak-pet.png";
 import type { DoseStatus } from "@/lib/med-logic";
+import { BottomNav as SharedBottomNav } from "@/components/vessa/BottomNav";
 
 export const MED_BG: Record<string, string> = {
   "med-red": "bg-med-red",
@@ -17,12 +18,15 @@ export const MED_BG: Record<string, string> = {
 };
 
 export function Screen({ children, className, nav }: { children: ReactNode; className?: string; nav?: boolean }) {
+  // When nav is true, use the shared Vessa main bottom navigation
+  // (Home / Appointments / Medication rabbit / Health / Account)
+  // so Medication feels like part of the same app instead of a separate one.
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col">
-      <main className={cn("flex flex-1 flex-col px-5 pt-safe", nav ? "pb-28" : "pb-safe", className)}>
+      <main className={cn("flex flex-1 flex-col px-5 pt-safe", nav ? "pb-nav" : "pb-safe", className)}>
         {children}
       </main>
-      {nav && <BottomNav />}
+      {nav && <SharedBottomNav />}
     </div>
   );
 }
@@ -207,40 +211,19 @@ export function AppHeader({ title }: { title?: string }) {
         <Link to="/medication/dashboard" hash="upcoming" aria-label="Notifications" className="glass grid size-10 place-items-center rounded-full">
           <Bell className="size-5" />
         </Link>
-        <button aria-label="Profile" onClick={() => toast("Profile lives in the full VessA app.")} className="glass grid size-10 place-items-center rounded-full">
+        <Link to="/profile" aria-label="Profile" className="glass grid size-10 place-items-center rounded-full">
           <UserRound className="size-5" />
-        </button>
+        </Link>
       </div>
     </header>
   );
 }
 
-export function BottomNav() {
-  const soon = (n: string) => () => toast(`${n} is part of the full VessA app.`);
-  const item = "flex flex-1 flex-col items-center gap-1 py-2 text-[11px] font-semibold";
-  return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[430px] px-4 pb-safe">
-      <div className="glass glass-strong flex rounded-3xl px-2">
-        <Link to="/medication/tracker" className={item} activeProps={{ className: "text-primary" }} inactiveProps={{ className: "text-muted-foreground" }}>
-          <Home className="size-5" />
-          Home
-        </Link>
-        <button className={cn(item, "text-muted-foreground")} onClick={soon("Appointments")}>
-          <CalendarDays className="size-5" />
-          Appointments
-        </button>
-        <button className={cn(item, "text-muted-foreground")} onClick={soon("Health Records")}>
-          <FileHeart className="size-5" />
-          Health Records
-        </button>
-        <button className={cn(item, "text-muted-foreground")} onClick={soon("Profile")}>
-          <UserRound className="size-5" />
-          Profile
-        </button>
-      </div>
-    </nav>
-  );
-}
+// NOTE: The old medication-only BottomNav was removed.
+// Medication pages that need navigation now use the shared Vessa BottomNav
+// via the Screen component's `nav` prop (see SharedBottomNav import above).
+// This keeps one consistent navigation system across the whole app.
+
 
 export function Field({ label, children, error, hint }: { label: string; children: ReactNode; error?: string | undefined; hint?: string }) {
   return (

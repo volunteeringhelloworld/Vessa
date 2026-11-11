@@ -340,6 +340,23 @@
   }
 }
 
+/* Confetti pieces fall from the top of the screen with drift + spin.
+   Uses CSS variables set on each piece by Confetti.tsx:
+   --dur, --delay, --drift, --spin */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, -12px, 0) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift, 0px), 105vh, 0) rotate(var(--spin, 360deg));
+  }
+}
+
 @utility animate-letter {
   opacity: 0;
   animation: letter-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -425,4 +442,6 @@
 @utility animate-pop { animation: select-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
 @utility animate-twinkle { animation: rise-in 1.2s ease-in-out infinite alternate; }
 @utility animate-draw { animation: rise-in 0.8s ease-out both; }
-@utility animate-confetti { animation: rise-in 0.6s ease-out both; }
+@utility animate-confetti {
+  animation: confetti-fall var(--dur, 4s) var(--delay, 0s) linear forwards;
+}

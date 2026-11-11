@@ -55,7 +55,7 @@ function NameStep() {
           id="full-name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
-          placeholder="e.g. Momo Aung"
+          placeholder="e.g. Massimo Ingegno"
           autoComplete="name"
           autoFocus
           className="glass h-16 w-full rounded-full px-6 text-lg text-ink outline-none placeholder:text-ink-soft/60 focus:ring-2 focus:ring-coral"
